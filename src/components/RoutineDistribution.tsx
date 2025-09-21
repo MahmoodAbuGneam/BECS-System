@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { apiService } from "../services/apiService";
+import { apiService } from "../services/hybridApiService";
 
 interface RoutineDistributionProps {
   onNavigate: (page: string) => void;
@@ -14,9 +14,9 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
   });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
-    success: boolean;
-    message: string;
-    alternatives?: { bloodType: string; available: number }[];
+    success?: boolean;
+    message?: string;
+    alternatives?: { blood_type: string; available: number }[];
   } | null>(null);
 
   const bloodTypes = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
@@ -104,8 +104,8 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
       <div style={{ maxWidth: "700px", margin: "0 auto" }}>
         <div
           style={{
-            background: "rgba(13, 148, 136, 0.05)",
-            border: "1px solid rgba(13, 148, 136, 0.2)",
+            background: "rgba(37, 99, 235, 0.05)",
+            border: "1px solid rgba(37, 99, 235, 0.2)",
             borderRadius: "var(--border-radius)",
             padding: "var(--spacing-lg)",
             marginBottom: "var(--spacing-lg)",
@@ -194,27 +194,27 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
               backdropFilter: "blur(10px)",
             }}
           >
-            {result.message}
+            {result.message || "No message available"}
           </div>
         )}
 
         {result &&
-          !result.success &&
+          result.success === false &&
           result.alternatives &&
           result.alternatives.length > 0 && (
             <div
               style={{
                 marginTop: "var(--spacing-md)",
                 padding: "var(--spacing-lg)",
-                background: "rgba(245, 158, 11, 0.1)",
-                border: "1px solid rgba(245, 158, 11, 0.3)",
+                background: "rgba(234, 88, 12, 0.1)",
+                border: "1px solid rgba(234, 88, 12, 0.3)",
                 borderRadius: "var(--border-radius)",
                 backdropFilter: "blur(10px)",
               }}
             >
               <h4
                 style={{
-                  color: "var(--warning-amber)",
+                  color: "var(--warning-orange)",
                   marginBottom: "var(--spacing-md)",
                 }}
               >
@@ -224,7 +224,7 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
               <p
                 style={{
                   marginBottom: "var(--spacing-md)",
-                  color: "var(--primary-navy)",
+                  color: "var(--text-primary)",
                 }}
               >
                 The following compatible blood types are available:
@@ -238,7 +238,7 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
               >
                 {result.alternatives.map((alt) => (
                   <div
-                    key={alt.bloodType}
+                    key={alt.blood_type}
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -251,8 +251,8 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
                     }}
                   >
                     <span style={{ fontWeight: "500" }}>
-                      <strong style={{ color: "var(--accent-teal)" }}>
-                        {alt.bloodType}
+                      <strong style={{ color: "var(--accent-blue)" }}>
+                        {alt.blood_type}
                       </strong>{" "}
                       - {alt.available} units available
                     </span>
@@ -260,7 +260,7 @@ const RoutineDistribution: React.FC<RoutineDistributionProps> = ({
                       className={`btn ${
                         alt.available >= formData.units ? "btn-success" : ""
                       }`}
-                      onClick={() => handleAlternativeRequest(alt.bloodType)}
+                      onClick={() => handleAlternativeRequest(alt.blood_type)}
                       disabled={loading || alt.available < formData.units}
                       style={{ minWidth: "120px" }}
                     >

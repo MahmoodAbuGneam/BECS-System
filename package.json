@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://yourusername.github.io/becs-website",
+  "homepage": "https://MahmoodAbuGneam.github.io/BECS-System",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

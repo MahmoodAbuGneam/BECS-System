@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { apiService, BloodInventory } from "../services/apiService";
+import { apiService, BloodInventory } from "../services/hybridApiService";
 
 interface DashboardProps {
   onNavigate: (page: string) => void;
