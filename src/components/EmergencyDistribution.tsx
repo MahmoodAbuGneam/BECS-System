@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { apiService, BloodInventory } from "../services/hybridApiService";
+import { useState, useEffect } from "react";
+import { apiService } from "../services/hybridApiService";
 
 interface EmergencyDistributionProps {
   onNavigate: (page: string) => void;
@@ -11,8 +11,8 @@ const EmergencyDistribution: React.FC<EmergencyDistributionProps> = ({
   const [oNegativeStock, setONegativeStock] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
-    success: boolean;
-    message: string;
+    success?: boolean;
+    message?: string;
     unitsProvided?: number;
   } | null>(null);
 
