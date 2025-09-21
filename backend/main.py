@@ -9,7 +9,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:3000",  # Local development
+    "https://mahmoodabugneam.github.io",  # GitHub Pages
+    "https://mahmoodabugneam.github.io/BECS-System"  # Your specific GitHub Pages URL
+])
 
 # Database connection
 mongodb_url = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
@@ -300,10 +304,10 @@ def get_compatible_alternatives(requested_type):
     return alternatives
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
     print("🩸 Starting BECS Backend...")
     print(f"📊 Database: {database_name}")
     print(f"🔗 MongoDB URI: {mongodb_url}")
     print("🚀 Starting Flask server...")
-    print("📍 API will be available at: http://localhost:8000")
-    print("🛑 Press Ctrl+C to stop the server")
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    print(f"📍 API will be available on port: {port}")
+    app.run(host="0.0.0.0", port=port, debug=False)

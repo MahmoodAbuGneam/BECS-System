@@ -6,7 +6,7 @@
   "homepage": "https://MahmoodAbuGneam.github.io/BECS-System",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode production",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist"
   },
